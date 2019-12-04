@@ -1,0 +1,30 @@
+.button {
+  margin-top: 5%;
+  margin-right: auto;
+  margin-left: auto;
+  background: #1e567e;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 75%;
+}
+
+.center {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.container {
+  width: 35vw
+}
+
+.form-item {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.fieldset {
+  margin-top: 30px
+}

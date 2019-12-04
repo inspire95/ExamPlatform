@@ -1,0 +1,19 @@
+
+<h4>Choose type of file</h4>
+<mat-radio-group class="example-radio-group" [(ngModel)]="attachmentType">
+  <mat-radio-button class="example-radio-button" *ngFor="let types of attachmentTypes" [value]="types.attachmentTypeId"
+                    >
+    {{types.name}}
+  </mat-radio-button>
+</mat-radio-group><br /><br />
+
+<mat-card *ngIf="attachmentType == 2">
+  <input mat-button type="file" (change)="onFileSelected($event)" accept="video/mp4" />
+  <button mat-button type="button" (clicl)="onUploadVideo(file)">UPLOAD</button>
+</mat-card>
+
+<mat-card *ngIf="attachmentType == 1">
+  <input mat-button type="file" (change)="onFileSelected($event)" accept="image/*" />
+  <button mat-button type="button" (clicl)="onUploadImage(file)">UPLOAD</button>
+</mat-card>
+

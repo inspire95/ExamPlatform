@@ -1,0 +1,124 @@
+<ng-container *ngIf="userTest.userTestStatusName == 'New' || userTest.userTestStatusName == 'Pending'; else TestFinished">
+  <ng-container *ngIf="!isFinished; else onFinish">
+    <ng-container *ngIf="isStarted; then Started; else NotStarted">
+    </ng-container>
+  </ng-container>
+
+  <ng-template #NotStarted>
+    <mat-card class="content" *ngIf="canBeLoad">
+      <div class="introduction">
+        <h1>Hi {{user.firstName}} {{user.lastName}} !</h1>
+        <h3>You're about to participate in</h3>
+        <h2>{{test.name}}</h2>
+
+        <mat-divider></mat-divider>
+        <div class="description">
+          <p>{{test.content}}</p>
+        </div>
+
+        <mat-divider></mat-divider><br />
+        <fieldset class="details">
+          <legend>Details of Test you're about to begin</legend><br />
+          <b>Test Categories: </b>{{listCategories(test.testCategories)}}<br />
+          <b>Number of Questions: </b>{{test.testQuestionIds.length}}<br />
+          <b>Points to be Obtained: </b>{{test.totalPointSum}}<br />
+          <h3>ESTIMATED TIME: {{test.time}}min.</h3>
+        </fieldset>
+      </div>
+      <div class="navi">
+        <div>
+          <button mat-raised-button (click)="onStartTest()" color="basic" class="startbtn">BEGIN!</button>
+        </div>
+      </div>
+    </mat-card>
+  </ng-template>
+
+  <ng-template #Started>
+    <mat-card class="content">
+      <div class="info">
+        <div class="elem left min">{{user.firstName}} {{user.lastName}}</div>
+        <div class="elem">
+          <h3>{{hours}} : {{minutes}} : {{seconds}}</h3>
+        </div>
+        <div class="elem right min">{{currentQuestion + 1}}/{{test.testQuestionIds.length}}</div>
+      </div>
+      <hr />
+      <div class="question">
+
+        <fieldset class="dark">
+          <h3 style="color: white">
+            {{questionModel.content}}
+          </h3>
+
+          <div *ngIf="questionModel.questionTypeId == 1">
+            <mat-selection-list name="chosenQuestionAnswerIds" [(ngModel)]="chosenQuestionAnswerIds" required>
+              <mat-list-option *ngFor="let answer of answerList" [value]="answer.answerId" (click)="setCouldBeChanged()">
+                <h5>{{answer.content}}</h5>
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div *ngIf="questionModel.questionTypeId == 2">
+            <mat-selection-list name="chosenQuestionAnswerIds" [(ngModel)]="chosenQuestionAnswerIds" required>
+              <mat-list-option *ngFor="let answer of answerList" [value]="answer.answerId" (click)="setJustOneCorrect(answer.answerId)">
+                <h5>{{answer.content}}</h5>
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div *ngIf="questionModel.questionTypeId == 3">
+            <mat-form-field class="example-full-width">
+              <textarea matInput #input maxlength="500" rows="5" placeholder="Answer:" (click)="setCouldBeChanged()"
+                name="content" [(ngModel)]="content"></textarea>
+              <mat-hint align="end">{{input.value?.length || 0}}/500</mat-hint>
+            </mat-form-field>
+          </div>
+        </fieldset>
+
+      </div>
+      <hr />
+      <div class="navi flex">
+        <div>
+          <button mat-raised-button (click)="onBackQuestion()" [disabled]="1 > currentQuestion" color="basic" style="min-width: 100px">Previous</button>
+          <button mat-raised-button (click)="onNextQuestion()" *ngIf="currentQuestion +1 != test.testQuestionIds.length"
+            color="basic" style="min-width: 100px">Next</button>
+        </div>
+        <div>
+          <button mat-raised-button (click)="onFinishTest()" *ngIf="currentQuestion +1== test.testQuestionIds.length"
+            color="basic" class="finishbtn">Finish!</button>
+        </div>
+      </div>
+
+    </mat-card>
+  </ng-template>
+</ng-container>
+
+<ng-template #TestFinished>
+  <mat-card class="content">
+    <div class="introduction">
+      <h1>Hi {{user.firstName}} {{user.lastName}} !</h1>
+      <h3>The following test has already been completed</h3>
+      <h2>{{test.name}}</h2>
+
+      <mat-divider></mat-divider>
+      <div class="description">
+        <p>{{test.content}}</p>
+      </div>
+      <mat-divider></mat-divider><br />
+      <fieldset class="details">
+        <legend>Details of finished Test</legend><br />
+        <b>Test Categories: </b>{{listCategories(test.testCategories)}}<br />
+        <b>Number of Questions: </b>{{test.testQuestionIds.length}}<br />
+        <b>Points to be Obtained: </b>{{test.totalPointSum}}<br />
+        <h3>ESTIMATED TIME: {{test.time}}min.</h3>
+      </fieldset>
+    </div>
+  </mat-card>
+</ng-template>
+
+<ng-template #onFinish>
+  <mat-card class="content">
+    <div class="introduction">
+      <h1>{{user.firstName}} {{user.lastName}} !</h1>
+      <h3>Thank you for complete the test. Wait for your score.</h3>
+    </div>
+  </mat-card>
+</ng-template>

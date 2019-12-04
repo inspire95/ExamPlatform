@@ -1,0 +1,8 @@
+Projekt za³o¿enia:
+UserTestStatus  - new, pending, toverify, complited, 
+TestSumaryType – incomplited, complited with pass, complited with failure. 
+Role – administrator , user 
+2 user w standardzie 
+QType – checkbox, radiobutton, textbox, 
+CategoryTypes – C#, SQL, PHP
+AttachmentType – video, img

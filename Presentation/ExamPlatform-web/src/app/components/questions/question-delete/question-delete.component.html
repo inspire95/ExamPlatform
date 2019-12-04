@@ -1,0 +1,18 @@
+<div class="container">
+
+  <h2 mat-dialog-subtitle> Are you sure, that you want to delete this question?</h2>
+
+  <div mat-dialog-content class="content center">
+    <mat-divider></mat-divider>
+    <p mat-dialog-subtitle>Question ID: <b class="alignRight">{{questionModel.questionId}}</b></p>
+    <mat-divider></mat-divider>
+    <p mat-dialog-subtitle>Question: <b>{{questionModel.content}}</b></p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="center">
+    <button mat-button [mat-dialog-close]>No</button>
+    <button mat-button [mat-dialog-close] (click)="onYesClick()" class="button">Yes</button>
+  </div>
+  
+</div>

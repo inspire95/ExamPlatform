@@ -1,0 +1,35 @@
+<mat-card>
+  <h2>Open Questions of test</h2>
+  <fieldset class="fieldset">
+    <h3>Question</h3>
+    {{userQuestionAnswerModel.questionContent}}
+  </fieldset><br /><br />
+  {{userQuestionAnswerModel.answerContent}}
+</mat-card><br /><br />
+<mat-form-field class="points">
+  <input name="pointsSum" matInput placeholder="Points:" #Points [(ngModel)]="userQuestionAnswerModel.aquiredPoints"
+         type="number" min="0" max="{{userQuestionAnswerModel.pointsSum}}" required oninput="validity.valid||(value='');" (click)="setFlagOnTrue()">
+</mat-form-field>
+
+<div *ngIf="Points.invalid && Points.dirty" class="invalid-feedback">
+  <div *ngIf="Points.errors.required">
+    Points are required.
+  </div>
+</div>
+
+<br /><br />
+<div class="navi flex">
+  <div>
+    <button color="warn" mat-raised-button (click)="onBackQuestion(userQuestionAnswerModel.userTestAnswerId, userQuestionAnswerModel.aquiredPoints)" [disabled]=" 1 > currentQuestion">
+      Back
+    </button>
+    <button color="primary" *ngIf="currentQuestion < userTestAnswers.length-1" mat-raised-button (click)="onNextQuestion(userQuestionAnswerModel.userTestAnswerId, userQuestionAnswerModel.aquiredPoints)">
+      Next
+    </button>
+  </div>
+  <div>
+    <button mat-raised-button (click)="onFinish(userQuestionAnswerModel.userTestAnswerId, userQuestionAnswerModel.aquiredPoints)" *ngIf="currentQuestion == userTestAnswers.length-1" color="basic">Finish!</button>
+  </div>
+</div>
+
+

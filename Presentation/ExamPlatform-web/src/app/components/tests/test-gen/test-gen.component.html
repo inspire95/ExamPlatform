@@ -1,0 +1,103 @@
+<div class="container">
+<div class="center">
+    <h1 class="mat-h1">Generate new test</h1>
+    {{testModel|json}}
+</div>
+      
+        <form name="form" #f="ngForm" novalidate>
+        <mat-form-field class="form-item">
+            <input name="name" [(ngModel)]="testModel.name" matInput placeholder="Name:" #name="ngModel" required minlength="8">
+          </mat-form-field>
+          <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+            <div *ngIf="name.errors.required">
+              Name is required.
+            </div>
+            <div *ngIf="name.errors.minlength">
+              Name must be at least 8 characters long.
+            </div>
+          </div>
+      
+<!-- Closed Question -->
+
+  <mat-form-field class="form-item">
+    <input class="form-item" matInput name="closedQuestion" placeholder="Closed question" [(ngModel)]="testModel.closedQuestion"
+    type="number" #closedQuestion="ngModel" required min="0" oninput="validity.valid || (value='');">
+  </mat-form-field>
+  <div *ngIf="closedQuestion.invalid && closedQuestion.dirty" class="invalid-feedback">
+    <div *ngIf="closedQuestion.errors.required">
+      Closed question is required.
+    </div>
+    <div *ngIf="closedQuestion.errors.min">
+      Closed question must be completed.
+    </div>
+  </div>
+
+<!-- Open Question -->
+
+  <mat-form-field class="form-item">
+    <input class="form-item" matInput name="openQuestion" placeholder="Open question" [(ngModel)]="testModel.openQuestion"
+    type="number" #openQuestion="ngModel" required min="0" oninput="validity.valid || (value='');">
+  </mat-form-field>
+  <div *ngIf="openQuestion.invalid && openQuestion.dirty" class="invalid-feedback">
+    <div *ngIf="openQuestion.errors.required">
+      Open question is required.
+    </div>
+  </div>
+<!-- Time -->
+  <mat-form-field class="form-item2" >
+    <input class="form-item" matInput name="time" placeholder="Time" [(ngModel)]="testModel.time"
+    type="number" #time="ngModel" required min="0" oninput="validity.valid || (value='');">
+  </mat-form-field>
+  <div *ngIf="time.invalid && time.dirty" class="invalid-feedback">
+      <div *ngIf="time.errors.required">
+        Time is required.
+      </div>
+    </div>
+<!-- RequiredPercentage -->
+    <mat-form-field class="form-item2"style="margin-left:20px">
+        <input class="form-item" matInput name="requiredPercentage"  placeholder="Percentage to pass:" [(ngModel)]="testModel.requiredPercentage"
+        type="number" #requiredPercentage="ngModel"  required min="0" max="100" oninput="validity.valid||(value='');">
+        <span matSuffix>%</span>
+      </mat-form-field>
+<!-- CategoryTypes -->
+    <mat-form-field class="form-item">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let category of selectedCategories" [value]="category.categoryTypeId" (click)="CategoryType(category.categoryTypeId)"
+                  [selectable]="selectable"
+                  [removable]="removable"
+                  (removed)="remove(category)">
+          {{category.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Add Category..."
+               #catInput
+               [formControl]="categoryCtrl"
+               [matAutocomplete]="auto"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+               <div class="invalid-feedback">
+                  <div *ngIf="selectedCategories.length == 0 && submitted" >
+                    Category is Required!
+                  </div>
+                </div>
+               </mat-chip-list>
+               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                 <mat-option *ngFor="let category of filteredCategories | async" [value]="category.categoryTypeId" (click)="CategoryType(category.categoryTypeId)">
+                   {{category.name}}
+                 </mat-option>
+               </mat-autocomplete>
+             </mat-form-field>
+             <div style="text-align:right; padding: 20px ">
+               <ng-container *ngIf="f.form.valid && selectedCategories.length > 0; then isValid else isNotValid">
+               </ng-container>
+      
+      <ng-template #isValid>
+        <button class ="button" (click)="addTest()" mat-raised-button >Generate Test</button>
+      </ng-template>
+
+      <ng-template #isNotValid>
+        <button class ="button" (click)="setSubmitted()" mat-raised-button >Generate Test</button>
+      </ng-template>
+    </div></form></div>

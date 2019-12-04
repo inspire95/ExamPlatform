@@ -1,0 +1,17 @@
+.points {
+  width: 29%;
+}
+.invalid-feedback {
+  color: red;
+  font-size: 75%;
+}
+.navi {
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

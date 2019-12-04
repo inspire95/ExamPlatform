@@ -1,0 +1,109 @@
+.example-full-width{
+  width: 100%;
+}
+
+
+.content {
+  margin: 0 auto;
+  width: 60%;
+  text-align:center;
+  height:85vh;
+  background-color: whitesmoke;
+  color: black;
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+h1,h2{
+  color: darkslateblue;
+}
+h3 {
+  color: rgba(66, 66, 66, .99);
+}
+
+.dark{
+  background-color: rgba(66, 66, 66, .99);
+  height: 100%;
+}
+
+.introduction{
+  padding:20px;
+  margin-top: 30px;
+}
+.navi{
+  width:100%;
+  text-align:center;
+  padding-top: 20px;
+}
+
+.info{
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
+}
+
+.elem {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.min {
+  font-size: 0.75em;
+  color: rgba(66, 66, 66, .99);
+}
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+
+.question{
+  min-height: 50vh;
+  text-align: left;
+}
+
+.details{
+  width: 50%;
+  margin: 0 auto;
+}
+.description{
+  padding:20px;
+  margin: 10px;
+}
+.startbtn{
+  margin: 20px;
+  width: 20%;
+  height: 10vh;
+}
+.finishbtn {
+  min-width: 100px;
+  background-color: green;
+}
+hr {
+  display: block;
+  margin: 10px 0 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, .12);
+  width: 100%
+}
+.tarea{
+  resize:none;
+  color:white;
+  min-height:30vh;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+

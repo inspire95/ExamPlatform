@@ -1,0 +1,158 @@
+
+<div class="content">
+  <h1>Editing Test</h1>
+    <button class="button" mat-raised-button routerLink="/tests">Back</button>
+    <div class="testform">
+      <div class="example-full-width">
+        <form name="form" #f="ngForm" novalidate>
+          <mat-form-field class="example-full-width">
+            <input name="name" [(ngModel)]="testModel.name" matInput placeholder="Name:" #Name="ngModel" required minlength="8">
+          </mat-form-field>
+          <div *ngIf="Name.invalid && Name.dirty" class="invalid-feedback">
+            <div *ngIf="Name.errors.required">
+              Name is required.
+            </div>
+            <div *ngIf="Name.errors.minlength">
+              Name must be at least 8 characters long.
+            </div>
+          </div>
+
+          <mat-form-field class="example-full-width">
+            <textarea name="content" [(ngModel)]="testModel.content" matInput #input maxlength="500" rows="10" placeholder="Content: "></textarea>
+            <mat-hint align="end">{{input.value?.length || 0}}/500</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field style="width: 7%; margin-right:20px">
+            <input name="time" [(ngModel)]="testModel.time" matInput placeholder="Time:" #time="ngModel" type="number" required min="0" oninput="validity.valid||(value='');">
+            <span matSuffix>min.</span>
+          </mat-form-field>
+
+          <mat-form-field style="width: 10%">
+            <input name="requiredPercentage" [(ngModel)]="testModel.requiredPercentage" matInput placeholder="Percentage to pass:" #requiredPercentage="ngModel" type="number" required min="0" max="100" oninput="validity.valid||(value='');">
+            <span matSuffix>%</span>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let category of selectedCategories"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(category)">
+                {{category.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Add Category..."
+                     #catInput
+                     [formControl]="categoryCtrl"
+                     [matAutocomplete]="auto"
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event)">
+              <div class="invalid-feedback">
+                <div *ngIf="selectedCategories.length == 0 && submitted">
+                  Category is Required!
+                </div>
+              </div>
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <fieldset style="width: 50%; margin: 0 auto">
+            <legend>Summary</legend>
+            <table class="example-full-width">
+              <tr>
+                <td></td>
+                <td>Count</td>
+                <td>Points</td>
+              </tr>
+              <tr>
+                <td>Close Questions</td>
+                <td>{{closeQuestionPoints.length}}</td>
+                <td>{{sumArray(closeQuestionPoints)}}</td>
+              </tr>
+              <tr>
+                <td>Open Questions</td>
+                <td>{{openQuestionPoints.length}}</td>
+                <td>{{sumArray(openQuestionPoints)}}</td>
+              </tr>
+              <tr>
+                <td>TOTAL:</td>
+                <td>{{testModel.testQuestionIds.length}}</td>
+                <td>{{testModel.totalPointSum}}</td>
+              </tr>
+
+            </table>
+          </fieldset>
+
+
+          <div style="text-align:center; padding: 20px ">
+            <ng-container *ngIf="f.form.valid && selectedCategories.length > 0; then isValid else isNotValid">
+            </ng-container>
+
+            <ng-template #isValid>
+              <button (click)="updateTest()" mat-raised-button color="primary">Save Changes</button>
+            </ng-template>
+
+            <ng-template #isNotValid>
+              <button (click)="setSubmitted()" mat-raised-button color="primary">Save Changes</button>
+            </ng-template>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="questionsList" class="example-full-width">
+
+        <!-- Question Column -->
+        <ng-container matColumnDef="Question">
+          <th mat-header-cell *matHeaderCellDef> Question </th>
+          <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="Type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element">{{questionTypes[element.questionTypeId - 1].name}} </td>
+        </ng-container>
+
+        <!-- Points Column -->
+        <ng-container matColumnDef="Points">
+          <th mat-header-cell *matHeaderCellDef> Points </th>
+          <td mat-cell *matCellDef="let element"> {{element.pointsSum}}</td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element" style="text-align:right">
+            <button mat-raised-button (click)="questionDetail(element.questionId)" routerLink="/question-details/{{element.questionId}}">Details</button>
+
+            <ng-container *ngIf="isAssigned(element);then Assigned; else notAssigned">
+              <button>B</button>
+            </ng-container>
+
+            <ng-template #Assigned>
+              <button color="warn" mat-raised-button (click)="detachClick(element)">Detach</button>
+            </ng-template>
+
+            <ng-template #notAssigned>
+              <button color="primary" mat-raised-button (click)="assignClick(element)">Assign</button>
+            </ng-template>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

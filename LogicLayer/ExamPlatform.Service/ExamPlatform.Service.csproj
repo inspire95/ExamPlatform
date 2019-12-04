@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Database\ExamPlatform.Database\ExamPlatform.Database.csproj" />
+    <ProjectReference Include="..\..\Presentation\ExamPlatform.ViewModels\ExamPlatform.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

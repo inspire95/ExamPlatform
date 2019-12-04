@@ -1,0 +1,55 @@
+<div class="container">
+  <h1 class="center" *ngIf="isNewOrEdit">New answer</h1>
+  <h1 class="center" *ngIf="!isNewOrEdit">Edit answer</h1>
+
+  <form name="form" #f="ngForm" novalidate>
+    <div>
+      <mat-form-field class="example-full-width">
+        <textarea matInput name="content" class="form-item" rows="4" maxlength="200" placeholder="Content" [(ngModel)]="answerModel.content"
+          #Content="ngModel" required></textarea>
+      </mat-form-field>
+      <div *ngIf="Content.invalid && Content.dirty" class="invalid-feedback">
+        <div *ngIf="Content.errors.required">
+          Content is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <mat-form-field>
+        <input class="points" name="points" #Points="ngModel" [(ngModel)]="answerModel.points" matInput placeholder="Points:"
+          type="number" required min="-99" max="99" oninput="validity.valid||(value='');">
+      </mat-form-field>
+      <mat-checkbox class="isCorrect" matInput name="isCorrect" [(ngModel)]="answerModel.isCorrect" (click)="setPoints(answerModel.isCorrect)">
+        Is answer correct?</mat-checkbox>
+      <div *ngIf="Points.invalid && Points.dirty" class="invalid-feedback">
+        <div *ngIf="Points.errors.required">
+          Points are required.
+        </div>
+      </div>
+      <div *ngIf="submitted && !isValid()" class="invalid-feedback">
+        Invalid number of points
+      </div>
+    </div>
+
+    <div class="center">
+      <div *ngIf="(f.form.valid && isValid()); else isInvalid">
+        <button class="button" type="submit" *ngIf="isNewOrEdit" (click)="updateAnswerList()" mat-button [mat-dialog-close]>
+          Add answer to question
+        </button>
+        <button class="button" type="submit" *ngIf="!isNewOrEdit" (click)="updateAnswerList()" mat-button [mat-dialog-close]>
+          Edit answer
+        </button>
+      </div>
+      <ng-template #isInvalid>
+        <button class="button" type="submit" *ngIf="isNewOrEdit" (click)="setSubmitted()" mat-button>
+          Add answer to question
+        </button>
+        <button class="button" type="submit" *ngIf="!isNewOrEdit" (click)="setSubmitted()" mat-button>
+          Edit answer
+        </button>
+      </ng-template>
+    </div>
+
+  </form>
+</div>

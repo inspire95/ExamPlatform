@@ -1,0 +1,31 @@
+<div class="content">
+  <h3 class="center">Create new category</h3>
+  <form class="center" name="form" #f="ngForm" novalidate>
+
+    <div>
+      <mat-form-field class="form-item">
+        <input matInput #categoryName="ngModel" name="Name" [(ngModel)]="categoryModel.name" placeholder="Category's name"
+          required maxlength="30">
+          <!-- Max length of category's name address is 30, because of validation on table definition in backend -->
+      </mat-form-field>
+      <div *ngIf="categoryName.invalid && categoryName.dirty || submitted" class="invalid-feedback">
+        <div *ngIf="categoryName.errors.required">
+          Name of category is required.
+        </div>
+      </div>
+    </div>
+    
+    <div class="center" *ngIf="f.form.valid; else isInvalid">
+      <button class="button" type="submit" (click)="onAddClick()" mat-button [mat-dialog-close]>
+        Add Category
+      </button>
+    </div>
+
+    <ng-template class="center" #isInvalid>
+      <button class="button" type="submit" (click)="setSubmitted()" mat-button>
+        Add Category
+      </button>
+    </ng-template>
+
+  </form>
+</div>

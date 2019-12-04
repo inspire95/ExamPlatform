@@ -1,0 +1,34 @@
+<button class="button" mat-raised-button (click)="onAddClick()">Create New Question</button>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="questionsList">
+
+        <ng-container matColumnDef="Content">
+            <th mat-header-cell *matHeaderCellDef> Content </th>
+            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="QuestionType">
+            <th mat-header-cell *matHeaderCellDef> Question's Type </th>
+            <td mat-cell *matCellDef="let element"> {{questionTypes[element.questionTypeId - 1].name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Points">
+            <th mat-header-cell *matHeaderCellDef> Points </th>
+            <td mat-cell *matCellDef="let element"> {{element.pointsSum}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element" style="text-align:right">
+                <button mat-raised-button (click)="onEditClick(element.questionId)">Edit</button>
+                <button mat-raised-button (click)="onDetailsClick(element.questionId)">Details</button>
+                <button mat-raised-button (click)="onDeleteClick(element.questionId)" color="warn">Delete</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

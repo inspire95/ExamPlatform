@@ -1,0 +1,16 @@
+<div class="container center">
+  <h2 mat-dialog-subtitle> Are you sure, that you want to delete this user?</h2>
+
+  <div mat-dialog-content class="content center">
+    <mat-divider></mat-divider>
+    <p mat-dialog-subtitle>User ID: <b class="alignRight">{{user.userId}}</b></p>
+    <mat-divider></mat-divider>
+    <p mat-dialog-subtitle>User Name: <b>{{user.firstName}} {{user.lastName}}</b></p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="center">
+    <button mat-button [mat-dialog-close]>No</button>
+    <button mat-button [mat-dialog-close] (click)="onYesClick()" class="button">Yes</button>
+  </div>
+</div>

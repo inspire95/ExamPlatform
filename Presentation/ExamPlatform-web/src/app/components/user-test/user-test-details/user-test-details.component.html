@@ -1,0 +1,56 @@
+<mat-card class="example-card">
+  <h3>User-Test Details</h3>
+  <button class="button" mat-raised-button routerLink="/user-details/{{userId}}">Back</button>
+  <mat-card class="example-card">
+
+    <h4>{{user.firstName}} {{user.lastName}}</h4>
+    <mat-card-header>
+      <mat-card-subtitle><b>User Test Status </b> {{userTest.userTestStatusName}}</mat-card-subtitle>
+      <mat-card-subtitle><b>Test Summary Type </b>{{userTest.testSummaryTypeName}}</mat-card-subtitle>
+      <mat-card-subtitle><b>Start Date </b>{{userTest.startDate}}</mat-card-subtitle>
+      <mat-card-subtitle><b>End Date </b>{{userTest.endDate}}</mat-card-subtitle><br />
+    </mat-card-header>
+
+    <h4>{{test.name}}</h4>
+    <mat-card-header>
+      <mat-card-subtitle><b>User Test Id </b>{{userTestId}}  </mat-card-subtitle>
+      <mat-card-subtitle><b>Categories </b>{{getCategories()}}</mat-card-subtitle>
+    </mat-card-header>
+    <h4 *ngIf="userTest.userTestStatusName == 'Completed'">SummaryTest</h4>
+    <div *ngIf="userTest.userTestStatusName == 'Completed'">
+      <mat-card-header>
+        <mat-card-subtitle><b>Total Point Aquired </b>{{userTest.totalPointAquired}}</mat-card-subtitle>
+        <mat-card-subtitle><b>Total Point Sum </b>{{userTest.totalPointSum}}</mat-card-subtitle>
+        <mat-card-subtitle><b>Percent </b>{{(userTest.totalPointAquired)/(userTest.totalPointSum) | percent}}</mat-card-subtitle>
+      </mat-card-header>
+    </div>
+
+    <h4>User answers of the test</h4>
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false"
+                           *ngFor="let i of test.testQuestionIds">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div *ngFor="let y of questions">
+              <div *ngIf="i== y.questionId">
+                {{y.content}}
+              </div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list-item>
+          <div *ngFor="let ans of userTestAnswers">
+            <div *ngIf=" i == ans.questionId">
+              {{ans.content}}
+              {{ans.answerContent}}
+              <div style="text-align: right">
+                Points Aquired: {{ans.answerPoint}}
+              </div>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-expansion-panel>
+    </mat-accordion>
+</mat-card>

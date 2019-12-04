@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "ExamPlatformContext": "User ID=postgres;Password=password;Host=localhost;Port=5433;Database=ExamPlatform;Pooling=true"
+  }
+}

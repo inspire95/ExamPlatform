@@ -1,0 +1,109 @@
+
+<div class="content">
+    <h1>Test Details</h1>
+    <button class="button" mat-raised-button routerLink="/tests">Back</button>
+    <div class="testform">
+      <div class="example-full-width">
+        <form name="form" #f="ngForm" novalidate>
+          <mat-form-field class="example-full-width">
+            <input name="name" [(ngModel)]="testModel.name" matInput placeholder="Name:" #Name="ngModel" required minlength="8" disabled>
+          </mat-form-field>
+
+
+          <mat-form-field class="example-full-width">
+            <textarea name="content" [(ngModel)]="testModel.content" matInput #input rows="10" placeholder="Content: " disabled></textarea>
+          </mat-form-field>
+
+          <mat-form-field style="width: 7%; margin-right: 20px">
+            <input name="time" [(ngModel)]="testModel.time" matInput placeholder="Time:" disabled #Time="ngModel">
+            <span matSuffix>min.</span>
+          </mat-form-field>
+
+          <mat-form-field style="width: 10%">
+            <input name="requiredPercentage" [(ngModel)]="testModel.requiredPercentage" matInput placeholder="Percentage to pass:" #requiredPercentage="ngModel" type="number" disabled>
+            <span matSuffix>%</span>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-chip-list>
+              <mat-chip *ngFor="let category of selectedCategories">
+                {{category.name}}
+              </mat-chip>
+            </mat-chip-list>
+          </mat-form-field>
+
+          <fieldset style="width: 50%; margin: 0 auto">
+            <legend>Summary</legend>
+            <table class="example-full-width">
+              <tr>
+                <td></td>
+                <td>Count</td>
+                <td>Points</td>
+              </tr>
+              <tr>
+                <td>Close Questions</td>
+                <td>{{closeQuestionPoints.length}}</td>
+                <td>{{sumArray(closeQuestionPoints)}}</td>
+              </tr>
+              <tr>
+                <td>Open Questions</td>
+                <td>{{openQuestionPoints.length}}</td>
+                <td>{{sumArray(openQuestionPoints)}}</td>
+              </tr>
+              <tr>
+                <td>TOTAL:</td>
+                <td>{{testModel.testQuestionIds.length}}</td>
+                <td>{{testModel.totalPointSum}}</td>
+              </tr>
+
+            </table>
+          </fieldset>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="questionsList" class="example-full-width">
+
+        <!-- Question Column -->
+        <ng-container matColumnDef="Question">
+          <th mat-header-cell *matHeaderCellDef> Question </th>
+          <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="Type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.questionTypeId}} </td>
+        </ng-container>
+
+        <!-- Categories Column -->
+        <ng-container matColumnDef="Categories">
+          <th mat-header-cell *matHeaderCellDef> Categories </th>
+          <td mat-cell *matCellDef="let element"> {{listCategories(element)}} </td>
+        </ng-container>
+
+        <!-- Points Column -->
+        <ng-container matColumnDef="Points">
+          <th mat-header-cell *matHeaderCellDef> Points </th>
+          <td mat-cell *matCellDef="let element"> {{element.pointsSum}}</td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element" style="text-align:right">
+            <button mat-raised-button routerLink="/question-details/{{element.questionId}}">Details</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+

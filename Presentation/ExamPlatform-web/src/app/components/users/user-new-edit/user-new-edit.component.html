@@ -1,0 +1,104 @@
+<div class="container">
+
+  <div class="center">
+    <div *ngIf="isNewOrEdit; else isEdit">
+      <h2> Add new User</h2>
+    </div>
+    <ng-template #isEdit>
+      <h2> Edit User</h2>
+    </ng-template>
+  </div>
+
+  <form name="form" #f="ngForm" novalidate>
+    <div>
+      <mat-form-field class="form-item">
+        <input class="form-item" matInput name="FirstName" placeholder="First Name" [(ngModel)]="userModel.firstName"
+          #FirstName="ngModel" required>
+      </mat-form-field>
+      <div *ngIf="FirstName.invalid && FirstName.dirty" class="invalid-feedback">
+        <div *ngIf="FirstName.errors.required">
+          First Name is required.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <mat-form-field class="form-item">
+        <input class="form-item" matInput name="LastName" placeholder="Last Name" [(ngModel)]="userModel.lastName"
+          #LastName="ngModel" required>
+      </mat-form-field>
+      <div *ngIf="LastName.invalid && LastName.dirty" class="invalid-feedback">
+        <div *ngIf="LastName.errors.required">
+          Last Name is required.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <mat-form-field class="form-item">
+        <input class="form-item" matInput type="password" name="Password" placeholder="Password" [(ngModel)]="userModel.password"
+          #Password="ngModel" required minlength="8" maxlength="16">
+          <!-- Max length of password is 16, because of validation on table definition in backend -->
+      </mat-form-field>
+      <div *ngIf="Password.invalid && Password.dirty" class="invalid-feedback">
+        <div *ngIf="Password.errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="Password.errors.minlength">
+          Password must be at least 8 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <mat-form-field class="form-item">
+        <input class="form-item" matInput name="Email" placeholder="Email" [(ngModel)]="userModel.email" #Email="ngModel"
+          required email maxlength="30">
+          <!-- Max length of email address is 30, because of validation on table definition in backend -->
+      </mat-form-field>
+      <div *ngIf="Email.invalid && Email.dirty" class="invalid-feedback">
+        <div *ngIf="Email.errors.required">
+          Email Address is required.
+        </div>
+        <div *ngIf="Email.errors.email">
+          Email Address must be valid.
+        </div>
+      </div>
+    </div>
+
+    <fieldset class="fieldset">
+      <legend>Roles</legend>
+      <mat-selection-list #UserRoleIds name="UserRoleIds" [(ngModel)]="userModel.userRoleIds" required>
+        <mat-list-option *ngFor="let Role of roles; index as i " [value]="i+1" (click)=isEmpty(UserRoleIds.selectedOptions.selected.length)>
+          {{Role.name}}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <div class="invalid-feedback">
+        <div *ngIf="!selectItemsIsEmpty && submitted">
+          At least one role is required.
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="center">
+      <div *ngIf="f.form.valid; else isInvalid">
+        <button class="button" type="submit" *ngIf="isNewOrEdit" (click)="createUser()" mat-button [mat-dialog-close]>
+          Add User
+        </button>
+        <button class="button" type="submit" *ngIf="!isNewOrEdit" (click)="editUser()" mat-button [mat-dialog-close]>
+          Edit User
+        </button>
+      </div>
+      <ng-template #isInvalid>
+        <button class="button" type="submit" *ngIf="isNewOrEdit" (click)="setSubmitted()" mat-button>
+          Add User
+        </button>
+        <button class="button" type="submit" *ngIf="!isNewOrEdit" (click)="setSubmitted()" mat-button>
+          Edit User
+        </button>
+      </ng-template>
+    </div>
+
+  </form>
+</div>

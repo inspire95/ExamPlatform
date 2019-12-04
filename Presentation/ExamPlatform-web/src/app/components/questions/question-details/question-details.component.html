@@ -1,0 +1,35 @@
+<mat-card>
+  <button class="button" mat-raised-button routerLink="/questions">Back</button>
+  <mat-card-header>
+    <mat-card-title class="name">{{questionModel.content}}</mat-card-title>
+    <mat-card-subtitle><b>Max Points: </b> {{questionModel.pointsSum}}</mat-card-subtitle>
+    <mat-card-subtitle><b>Question type: </b> {{questionType.name}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <fieldset class="fieldset">
+    <legend>Category Types</legend>
+    <mat-selection-list>
+      <mat-list-item *ngFor="let type of questionModel.categoryTypeIds">
+        {{categoryTypes[type-1].name}}
+      </mat-list-item>
+    </mat-selection-list>
+  </fieldset>
+
+  <fieldset class="fieldset">
+    <legend>Answers</legend>
+    <mat-list class="example-full-width" name="answersList" [(ngModel)]="answersModel" ngDefaultControl>
+      <div>
+        <mat-list-item role="listitem" *ngFor="let answer of answersList; index as i">
+          <div class="points">
+            Points: {{answer.points}}
+          </div>
+          <div class="answer">
+            {{answer.content}}
+          </div>
+          <mat-checkbox class="points" matInput name="isCorrect" [(ngModel)]="answer.isCorrect" disabled>Correct?</mat-checkbox>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </div>
+    </mat-list>
+  </fieldset>
+</mat-card>

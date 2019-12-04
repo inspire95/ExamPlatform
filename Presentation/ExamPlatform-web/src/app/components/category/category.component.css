@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.button {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-right: 50px;
+  margin-left: 50px;
+  background: #1e567e;
+}

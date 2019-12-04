@@ -1,0 +1,72 @@
+.button {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-right: 50px;
+  margin-left: 50px;
+  background: #1e567e;
+  }
+  
+  .invalid-feedback{
+  color: red;
+  font-size: 75%;
+  }
+  
+  .center{
+    text-align: center;
+  }
+  
+  .container{
+    width: 35vw
+  }
+  
+  .form-item {
+    margin-top: 2px;
+    width: 100%;
+  }
+
+  .form-item2 {
+    margin-top: 2px;
+    width: 25%;
+  }
+  
+  .fieldset {
+    margin-top: 30px
+  }
+  
+  .contentInside {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    background: #262626;
+  }
+  
+  .formtext {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  .example-min-width {
+    width: 20%;
+  }
+  
+  .categories {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  

@@ -1,0 +1,58 @@
+<div  class="login-page" >
+  <div class="login-spacer"></div>
+  <div class="login-container">
+    <div id="login-fab" class="mdl-color--accent mdl-color-text--white">
+      <i id="lock-icon" class="material-icons">lock</i>
+    </div>
+    <h2 class="card-heading">User Login</h2>
+<form #loginForm="ngForm" class="login-form" (ngSubmit)="onSubmit(loginForm)">
+  <div class="row">
+    <mat-form-field>
+      <input matInput type="text" #Email="ngModel" name="email" [(ngModel)]="accountService.selectedUser.email" placeholder="Email">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <input matInput type="password" #Password="ngModel" name="password" [(ngModel)]="accountService.selectedUser.password" placeholder="Password">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="login">
+      <button mat-raised-button type="submit" class="btn-large btn-submit">Login</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="register">
+      <button mat-button >Forgot Password</button>
+    </div>  
+  </div>
+</form>
+</div>
+
+<!-- <div  class="login-page" >
+  <div class="login-spacer"></div>
+  <div class="login-container">
+    <div id="login-fab" class="mdl-color--accent mdl-color-text--white">
+      <i id="lock-icon" class="material-icons">lock</i>
+    </div>
+    <h2 class="card-heading">
+      User Login
+    </h2>
+    <form #loginForm="ngForm" class="login-form" (ngSubmit)="onSubmit(loginForm)">
+      <mat-form-field class="row">
+        <input matInput type="text" #UserName="ngModel" name="username" [(ngModel)]="accountService.selectedUser.username" placeholder="Email">
+      </mat-form-field>    
+      <mat-form-field class="row">
+        <input matInput type="password" #Password="ngModel" name="password" [(ngModel)]="accountService.selectedUser.password" placeholder="Password">
+      </mat-form-field>
+    </form>
+    <div class="row">
+      <div class="login">
+        <button mat-raised-button type="submit" class="btn-large btn-submit">Login</button>
+      </div>
+      <div class="register">
+        <button mat-button >Forgot Password</button>
+      </div>      
+    </div>
+  </div>
+</div> -->

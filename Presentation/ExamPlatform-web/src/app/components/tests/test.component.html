@@ -1,0 +1,46 @@
+
+<button class='ctest' mat-button [matMenuTriggerFor]="menu">Create New Test</button>
+<mat-menu #menu="matMenu">
+  <button class='ntest' mat-menu-item (click) ="onAddClick(1)">Create Test Manual</button>
+  <button class='ntest' mat-menu-item (click) ="onAddClick(2)">Generate New Test</button>
+</mat-menu>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="testsList">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="TestId">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.testId}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="Categories">
+      <th mat-header-cell *matHeaderCellDef> Category </th>
+      <td mat-cell *matCellDef="let element">  {{listCategories(element.testCategories)}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions" >
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" style="text-align: right">
+
+        <button mat-raised-button (click)="onDetailsClick(element.testId)">Details</button>
+        <button mat-raised-button (click)="onEditClick(element.testId)">Edit</button>
+        <button mat-raised-button color="warn" (click)="deleteDialog(element.testId)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+

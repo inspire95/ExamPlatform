@@ -1,0 +1,30 @@
+<button class="button" mat-raised-button (click)="onAddClick()">Create New User</button>
+<div class="mat-elevation-z8">    
+  <table mat-table [dataSource]="usersList">
+    
+    <ng-container matColumnDef="FirstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="LastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions" >
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" style="text-align:right">
+        <button mat-raised-button (click)="onEditClick(element.userId)">Edit</button>
+        <button mat-raised-button (click)="onDetailsClick(element.userId)">Details</button>
+        <button mat-raised-button (click)="onDeleteClick(element.userId)" color="warn">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <app-alerts></app-alerts>
+
+  <mat-paginator [pageSizeOptions]="[20, 40, 60]" showFirstLastButtons></mat-paginator>
+</div>
