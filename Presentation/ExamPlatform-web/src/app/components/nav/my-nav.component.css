@@ -11,14 +11,12 @@
   box-shadow: 3px 0 6px rgba(29, 28, 28, 0.678);
   
 }
+  .sidenav p {
 
-.sidenav #p {
-  
-  text-align:center;
-  
+  text-align: center;
 }
-
-.fixed-toolbar {
+  
+  .fixed-toolbar {
   width: 100%;
   position: fixed;
   z-index: 3;

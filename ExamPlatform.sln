@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{1BD29CEB-4057-4E7A-B204-1C144577916A}"
-	ProjectSection(SolutionItems) = preProject
-		Presentation\ExamPlatform-web\src\app\components\user-test\user-test-details\user-test-details.component.ts = Presentation\ExamPlatform-web\src\app\components\user-test\user-test-details\user-test-details.component.ts
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{1B54694E-0274-46B5-8A05-56868340F20B}"
 EndProject
